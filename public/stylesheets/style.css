@@ -1,0 +1,20 @@
+body {
+  padding: 0;
+  margin: 0;
+  font: 14px;
+  font-family: monospace;
+  color: white;
+  background: black;
+}
+
+#frame {
+  width: 940px;
+  height: 560px;
+  line-height: 20px;
+  font-size: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -470px;
+  margin-top: -280px;
+}
