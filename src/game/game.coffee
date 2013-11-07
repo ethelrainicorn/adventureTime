@@ -5,18 +5,29 @@ _      = require 'underscore'
 class Game
 
   constructor: ->
-    @renderLoop = @renderLoop.bind(@)
+    @gameLoop = @gameLoop.bind @
 
   config:
     framerate: 100
 
   run: ->
+    log "Running game..."
     @currentScene = new Road()
-    @renderLoop()
+    @gameLoop() # Start game loop
 
-  renderLoop: ->
-    log "running render loop"
+  draw: ->
     @currentScene.render()
-    _.delay(@renderLoop, @config.framerate)
+
+  processEvents: ->
+    #TODO
+
+  buildScene: ->
+    #TODO
+
+  gameLoop: ->
+    @processEvents()
+    @buildScene()
+    @draw()
+    _.delay(@gameLoop, @config.framerate)
 
 module.exports = Game
