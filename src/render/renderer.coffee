@@ -1,9 +1,12 @@
 # Singleton that renders to the screen
 
 Renderer =
-  render: (data) ->
-    data = data.replace(new RegExp('\n', 'g'), '<br/>')
-    data = data.replace(new RegExp('\ ', 'g'), '&nbsp;')
-    $('#frame').html data
+
+  # Process current scene into ASCII and write to the screen
+  render: (sceneData) ->
+    # Replace endlines with <br> and space with HTML spaces
+    sceneData = sceneData.replace(new RegExp('\n', 'g'), '<br/>')
+    sceneData = sceneData.replace(new RegExp('\ ', 'g'), '&nbsp;')
+    $('#frame').html sceneData
 
 module.exports = Renderer

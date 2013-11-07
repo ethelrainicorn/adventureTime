@@ -3,4 +3,4 @@ Game  = require './game/game'
 
 game  = new Game()
 
-$(game.run)
+$(game.run.bind(game))
