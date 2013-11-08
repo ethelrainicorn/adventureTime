@@ -1,13 +1,15 @@
-config = require '../config'
-Events = require '../events/eventQueue'
-Screen = require '../screen/screen'
-{log}  = require '../debug/logger'
-_      = require 'underscore'
-$      = require '../vendor/jquery'
+config  = require '../config'
+Events  = require '../events/eventQueue'
+Screen  = require '../screen/screen'
+{log}   = require '../debug/logger'
+{delay} = require 'underscore'
+$       = require '../vendor/jquery'
+File    = require '../save/file'
 
 class Game
 
   constructor: ->
+    @screen = new Screen()
     @gameLoop = @gameLoop.bind @
 
   # Where the magic happens
@@ -15,7 +17,7 @@ class Game
     @processEvents()
     @buildScene()
     @draw()
-    _.delay(@gameLoop, config.refreshRate)
+    delay(@gameLoop, config.refreshRate)
 
   attachEventListeners: ->
     $('body').on 'keypress', @addKeyActionToEventQueue
@@ -42,10 +44,9 @@ class Game
 
   processEvents: ->
     while !Events.empty()
-      Events.process Events.pop()
+      @screen.processEvent Events.pop()
 
 
   buildScene: ->
-    @screen = new Screen()
 
 module.exports = Game

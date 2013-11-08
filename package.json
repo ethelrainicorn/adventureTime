@@ -12,7 +12,8 @@
     "underscore": "*",
     "coffee-script": "*",
     "browserify": "*",
-    "backbone": "*"
+    "backbone": "*",
+    "localStorage": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"

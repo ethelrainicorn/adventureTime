@@ -1,10 +1,33 @@
 config   = require '../config'
 {log}    = require '../debug/logger'
 Renderer = require '../render/renderer'
+File     = require '../save/file'
 
 class Screen
 
   ENDLINE: '\n'
+
+  constructor: ->
+    @file = new File()
+    @file.load()
+    @position = @file.data
+
+  position:
+    x: 1
+    y: 1
+    facing: 'right'
+
+  characterAscii: -> '@'
+
+  saveFile: ->
+    @file.save @position
+
+  processEvent: (event) ->
+    @position.y++ if event == 'down'
+    @position.y-- if event == 'up'
+    @position.x++ if event == 'right'
+    @position.x-- if event == 'left'
+    @saveFile()   if event == 'e'
 
   render: ->
     ascii = ""
@@ -30,7 +53,10 @@ class Screen
           else if j == config.screen.width-1
             ascii += "│"
           else
-            ascii += ' '
+            if i == @position.y and j == @position.x
+              ascii += @characterAscii()
+            else
+              ascii += ' '
       ascii += @ENDLINE
 
     Renderer.render ascii
