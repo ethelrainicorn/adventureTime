@@ -1,6 +1,6 @@
 Config =
   screen:
-    height: 25
+    height: 30
     width: 75
   video:
     refreshRate: 500

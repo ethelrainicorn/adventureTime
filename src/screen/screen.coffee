@@ -17,7 +17,11 @@ class Screen
     y: 1
     facing: 'right'
 
-  characterAscii: -> '@'
+  asciiAt: (x,y) ->
+    if x == @position.y and y == @position.x
+      '@'
+    else
+      ' '
 
   saveFile: ->
     @file.save @position
@@ -53,10 +57,7 @@ class Screen
           else if j == config.screen.width-1
             ascii += "│"
           else
-            if i == @position.y and j == @position.x
-              ascii += @characterAscii()
-            else
-              ascii += ' '
+            ascii += @asciiAt i, j
       ascii += @ENDLINE
 
     Renderer.render ascii
