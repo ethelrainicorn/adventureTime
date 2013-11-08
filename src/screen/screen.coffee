@@ -2,7 +2,7 @@ config   = require '../config'
 {log}    = require '../debug/logger'
 Renderer = require '../render/renderer'
 
-class Scene
+class Screen
 
   ENDLINE: '\n'
 
@@ -30,9 +30,9 @@ class Scene
           else if j == config.screen.width-1
             ascii += "│"
           else
-            ascii += ' '#@sceneData[i-1][j-1]
+            ascii += ' '
       ascii += @ENDLINE
 
     Renderer.render ascii
 
-module.exports = Scene
+module.exports = Screen

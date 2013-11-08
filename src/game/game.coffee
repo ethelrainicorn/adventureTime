@@ -1,6 +1,6 @@
 config = require '../config'
 Events = require '../events/eventQueue'
-Road   = require '../scene/road'
+Screen = require '../screen/screen'
 {log}  = require '../debug/logger'
 _      = require 'underscore'
 $      = require '../vendor/jquery'
@@ -38,7 +38,7 @@ class Game
     @gameLoop() # Start game loop
 
   draw: ->
-    @scene.render()
+    @screen.render()
 
   processEvents: ->
     while !Events.empty()
@@ -46,6 +46,6 @@ class Game
 
 
   buildScene: ->
-    @scene = new Road()
+    @screen = new Screen()
 
 module.exports = Game
