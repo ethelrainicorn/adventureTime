@@ -1,33 +1,51 @@
+config = require '../config'
+Events = require '../events/eventQueue'
 Road   = require '../scene/road'
 {log}  = require '../debug/logger'
 _      = require 'underscore'
+$      = require '../vendor/jquery'
 
 class Game
 
   constructor: ->
     @gameLoop = @gameLoop.bind @
 
-  config:
-    framerate: 100
-
-  run: ->
-    log "Running game..."
-    @currentScene = new Road()
-    @gameLoop() # Start game loop
-
-  draw: ->
-    @currentScene.render()
-
-  processEvents: ->
-    #TODO
-
-  buildScene: ->
-    #TODO
-
+  # Where the magic happens
   gameLoop: ->
     @processEvents()
     @buildScene()
     @draw()
-    _.delay(@gameLoop, @config.framerate)
+    _.delay(@gameLoop, config.refreshRate)
+
+  attachEventListeners: ->
+    $('body').on 'keypress', @addKeyActionToEventQueue
+
+  addKeyActionToEventQueue: (e) ->
+    key =
+      switch e.keyCode
+        when 119 then 'up'
+        when 115 then 'down'
+        when 100 then 'right'
+        when 97  then 'left'
+        when 13  then 'enter'
+        when 101 then 'e'
+    Events.enqueue key
+
+  run: ->
+    log "Running game..."
+    #Events.on 'down', -> log 'down!!!!'
+    @attachEventListeners()
+    @gameLoop() # Start game loop
+
+  draw: ->
+    @scene.render()
+
+  processEvents: ->
+    while !Events.empty()
+      Events.process Events.pop()
+
+
+  buildScene: ->
+    @scene = new Road()
 
 module.exports = Game

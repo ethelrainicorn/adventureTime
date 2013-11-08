@@ -11,7 +11,8 @@
     "jade": "*",
     "underscore": "*",
     "coffee-script": "*",
-    "browserify": "*"
+    "browserify": "*",
+    "backbone": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"
